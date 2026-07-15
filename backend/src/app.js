@@ -70,7 +70,11 @@ if (!env.isTest) {
 }
 
 // ── Serve uploaded images ─────────────────────────────────────────────────
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+const isVercel = process.env.VERCEL || process.env.NOW_BUILD_TRIGGER;
+const uploadDir = isVercel
+  ? path.join('/tmp', 'uploads')
+  : path.join(__dirname, '../uploads');
+app.use('/uploads', express.static(uploadDir));
 
 // ── Health check ──────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {
