@@ -1,0 +1,18 @@
+# ── Root-level ignores for the xray-interpreter monorepo ──────────────────
+
+# Never commit environment files — they contain real secrets
+.env
+.env.local
+.env.*.local
+.env.example
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Vercel
+.vercel/
+node_modules
+

@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Reset & Typography ─────────────────────────────── */
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply font-sans bg-cream text-slate-800 min-h-screen;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    line-height: 1.65; /* a touch more breathing room */
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-slate-900;
+    line-height: 1.25;
+  }
+
+  h1 { @apply text-4xl; }
+  h2 { @apply text-3xl; }
+  h3 { @apply text-2xl; }
+  h4 { @apply text-xl; }
+
+  p { @apply text-slate-600 leading-relaxed; }
+
+  input, textarea, select {
+    @apply font-sans;
+  }
+
+  ::selection {
+    @apply bg-medical-100 text-medical-900;
+  }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-slate-100; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-300 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-slate-400; }
+}
+
+/* ─── Component Utilities ─────────────────────────────────── */
+@layer components {
+  /* Cards */
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-slate-100 transition-shadow duration-200;
+  }
+  .card-hover {
+    @apply card hover:shadow-card-md;
+  }
+  .card-interactive {
+    @apply card hover:shadow-card-lg cursor-pointer transition-all duration-200 hover:-translate-y-0.5;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium rounded-xl transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none;
+  }
+  .btn-primary {
+    @apply btn bg-medical-600 text-white hover:bg-medical-700 focus:ring-medical-500 shadow-sm hover:shadow-md active:scale-95;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-slate-700 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 focus:ring-slate-400 shadow-sm active:scale-95;
+  }
+  .btn-ghost {
+    @apply btn text-slate-600 hover:bg-slate-100 hover:text-slate-800 focus:ring-slate-400 active:scale-95;
+  }
+  .btn-danger {
+    @apply btn bg-rose-500 text-white hover:bg-rose-600 focus:ring-rose-400 shadow-sm active:scale-95;
+  }
+  .btn-success {
+    @apply btn bg-health-600 text-white hover:bg-health-700 focus:ring-health-400 shadow-sm active:scale-95;
+  }
+  .btn-sm { @apply text-sm px-3 py-1.5; }
+  .btn-md { @apply text-sm px-4 py-2; }
+  .btn-lg { @apply text-base px-6 py-3; }
+  .btn-xl { @apply text-base px-8 py-4; }
+
+  /* Badges */
+  .badge {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .badge-blue   { @apply badge bg-medical-50 text-medical-700 border border-medical-200; }
+  .badge-green  { @apply badge bg-health-50 text-health-700 border border-health-200; }
+  .badge-amber  { @apply badge bg-amber-50 text-amber-700 border border-amber-200; }
+  .badge-rose   { @apply badge bg-rose-50 text-rose-700 border border-rose-200; }
+  .badge-slate  { @apply badge bg-slate-50 text-slate-700 border border-slate-200; }
+
+  /* Standard form input */
+  .input {
+    @apply w-full px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400
+           focus:outline-none focus:ring-2 focus:ring-medical-500 focus:border-transparent
+           transition-all duration-200 text-sm shadow-inner-sm;
+  }
+
+  /* Auth-page input — a little taller, warmer focus ring */
+  .auth-input {
+    @apply w-full px-4 py-3 bg-white border border-slate-200 rounded-2xl text-slate-800 placeholder-slate-400
+           focus:outline-none focus:ring-2 focus:ring-medical-400 focus:border-medical-300
+           transition-all duration-200 text-sm;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  }
+  .auth-input:hover {
+    @apply border-slate-300;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Page header */
+  .page-header {
+    @apply border-b border-slate-100 bg-white px-6 py-5;
+  }
+
+  /* Divider */
+  .divider {
+    @apply border-t border-slate-100 my-4;
+  }
+
+  /* Status dots */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  .status-dot-green { @apply status-dot bg-health-500; }
+  .status-dot-amber { @apply status-dot bg-amber-500; }
+  .status-dot-red   { @apply status-dot bg-rose-500; }
+  .status-dot-blue  { @apply status-dot bg-medical-500; }
+
+  /* Skeleton */
+  .skeleton {
+    @apply rounded-lg bg-gradient-to-r from-slate-100 via-slate-50 to-slate-100;
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Medical report text */
+  .report-text {
+    @apply font-mono text-sm text-slate-700 leading-relaxed whitespace-pre-wrap;
+  }
+
+  /* Confidence bar track */
+  .confidence-track {
+    @apply w-full h-2 bg-slate-100 rounded-full overflow-hidden;
+  }
+}
+
+/* ─── Custom Utilities ────────────────────────────────────── */
+@layer utilities {
+  .text-gradient-medical {
+    background: linear-gradient(135deg, #1D4ED8, #2563EB, #16A34A);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-sm border border-white/60;
+  }
+
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+  .safe-top    { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+}
+
+/* ─── Print Styles ────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+
+  body {
+    @apply bg-white text-black;
+    font-size: 11pt;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border: 1px solid #e2e8f0 !important;
+    break-inside: avoid;
+  }
+}
+
+/* ─── Page Transition ─────────────────────────────────────── */
+.page-enter {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+/* ─── Dark Mode Overrides ─────────────────────────────────── */
+.dark body {
+  @apply bg-slate-950 text-slate-300;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+  @apply text-slate-100;
+}
+
+.dark p {
+  @apply text-slate-400;
+}
+
+.dark .card {
+  @apply bg-slate-900 border-slate-800 shadow-none;
+}
+
+.dark .btn-secondary {
+  @apply bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800/80 hover:border-slate-700;
+}
+
+.dark .btn-ghost {
+  @apply text-slate-400 hover:bg-slate-800/50 hover:text-slate-200;
+}
+
+.dark .input {
+  @apply bg-slate-950 border-slate-800 text-slate-200 placeholder-slate-600 focus:ring-medical-600;
+}
+
+.dark .auth-input {
+  @apply bg-slate-950 border-slate-800 text-slate-200 placeholder-slate-600 focus:ring-medical-500 focus:border-medical-600;
+}
+
+.dark .page-header {
+  @apply bg-slate-900 border-slate-800/80;
+}
+
+.dark .divider {
+  @apply border-slate-800/80;
+}
+
+.dark .skeleton {
+  @apply from-slate-900 via-slate-800 to-slate-900;
+}
+
+.dark .report-text {
+  @apply text-slate-300;
+}
+
+.dark .confidence-track {
+  @apply bg-slate-800;
+}
+
+.dark ::-webkit-scrollbar-track { @apply bg-slate-950; }
+.dark ::-webkit-scrollbar-thumb { @apply bg-slate-800; }
+.dark ::-webkit-scrollbar-thumb:hover { @apply bg-slate-700; }
+

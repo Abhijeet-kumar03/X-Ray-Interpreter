@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  # MongoDB Database
+  mongodb:
+    image: mongo:6.0
+    container_name: medvision-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  # Redis Cache
+  redis:
+    image: redis:7.0-alpine
+    container_name: medvision-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: medvision-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/medvision-ai
+      - REDIS_URL=redis://redis:6379
+      - CACHE_DRIVER=redis
+      - JWT_SECRET=production-jwt-secret-key-replace-this-in-production-deployments
+      - JWT_EXPIRES_IN=15m
+      - REFRESH_TOKEN_EXPIRES_DAYS=30
+      - CORS_ORIGIN=http://localhost:80,http://localhost:5173
+    depends_on:
+      - mongodb
+      - redis
+    volumes:
+      - uploads_data:/app/uploads
+
+  # Frontend Web Client
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: medvision-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+  redis_data:
+  uploads_data:
