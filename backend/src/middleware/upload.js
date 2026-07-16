@@ -5,10 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
-const isVercel = process.env.VERCEL || process.env.NOW_BUILD_TRIGGER;
-const UPLOAD_DIR = isVercel
-  ? path.join('/tmp', 'uploads')
-  : path.join(__dirname, '../../uploads');
+const UPLOAD_DIR = path.join(__dirname, '../../uploads');
 
 // Ensure upload directory exists
 if (!fs.existsSync(UPLOAD_DIR)) {

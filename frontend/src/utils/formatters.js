@@ -89,6 +89,6 @@ export function capitalize(str) {
 export function getImageUrl(imageUrl) {
   if (!imageUrl) return null
   if (imageUrl.startsWith('http') || imageUrl.startsWith('blob:')) return imageUrl
-  const baseUploadUrl = import.meta.env.VITE_UPLOAD_URL || (import.meta.env.DEV ? '/uploads' : 'https://xray-interpreterbackend.vercel.app/uploads')
+  const baseUploadUrl = import.meta.env.VITE_UPLOAD_URL || (import.meta.env.DEV ? '/uploads' : 'https://xray-interpreter-backend.onrender.com/uploads')
   return `${baseUploadUrl}/${imageUrl}`
 }

@@ -70,10 +70,7 @@ if (!env.isTest) {
 }
 
 // ── Serve uploaded images ─────────────────────────────────────────────────
-const isVercel = process.env.VERCEL || process.env.NOW_BUILD_TRIGGER;
-const uploadDir = isVercel
-  ? path.join('/tmp', 'uploads')
-  : path.join(__dirname, '../uploads');
+const uploadDir = path.join(__dirname, '../uploads');
 app.use('/uploads', express.static(uploadDir));
 
 // ── Root route ────────────────────────────────────────────────────────────

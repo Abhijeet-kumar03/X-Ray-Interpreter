@@ -1,0 +1,55 @@
+services:
+  - type: web
+    name: xray-interpreter-backend
+    runtime: node
+    region: singapore          # closest to India; change to ohio / frankfurt etc. if preferred
+    plan: free                 # free tier; upgrade to starter for always-on
+    rootDir: backend           # path relative to repo root where package.json lives
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /health
+
+    envVars:
+      - key: NODE_ENV
+        value: production
+
+      # ── Fill these in the Render dashboard (Environment tab) ───────────────
+      # Do NOT paste real secrets here — use Render's secret env vars feature.
+      - key: PORT
+        value: 10000            # Render always exposes PORT=10000 internally
+
+      - key: MONGODB_URI
+        sync: false             # set manually in Render dashboard
+
+      - key: JWT_SECRET
+        sync: false             # set manually in Render dashboard
+
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      - key: REFRESH_TOKEN_EXPIRES_DAYS
+        value: 30
+
+      - key: PASSWORD_RESET_EXPIRES_MIN
+        value: 60
+
+      - key: BCRYPT_SALT_ROUNDS
+        value: 12
+
+      - key: UPLOAD_DIR
+        value: uploads
+
+      - key: MAX_FILE_SIZE
+        value: 10485760          # 10 MB
+
+      - key: CORS_ORIGIN
+        sync: false             # set to your Vercel frontend URL in Render dashboard
+
+      - key: AI_DEFAULT_MODEL
+        value: DenseNet121
+
+      - key: AI_DEFAULT_MODALITY
+        value: chest_xray
+
+      - key: RATE_LIMIT_MAX
+        value: 100
