@@ -35,7 +35,7 @@ const allowedOrigins = env.server.corsOrigin.split(',').map(o => o.trim());
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile, curl, server-to-server)
-    if (!origin || allowedOrigins.includes(origin)) {
+    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
       return callback(null, true);
     }
     // In development, allow all localhost origins
@@ -75,6 +75,16 @@ const uploadDir = isVercel
   ? path.join('/tmp', 'uploads')
   : path.join(__dirname, '../uploads');
 app.use('/uploads', express.static(uploadDir));
+
+// ── Root route ────────────────────────────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    message: 'MedVision AI API Server is running.',
+    healthCheck: '/health',
+    version: env.ai.pipelineVersion,
+  });
+});
 
 // ── Health check ──────────────────────────────────────────────────────────
 app.get('/health', (req, res) => {

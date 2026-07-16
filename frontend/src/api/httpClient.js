@@ -2,7 +2,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 
 const httpClient = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || (import.meta.env.DEV ? '/api' : 'https://xray-interpreterbackend.vercel.app/api'),
   timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
