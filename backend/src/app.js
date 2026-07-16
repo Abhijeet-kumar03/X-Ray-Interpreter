@@ -34,12 +34,16 @@ app.use(helmet({
 const allowedOrigins = env.server.corsOrigin.split(',').map(o => o.trim());
 app.use(cors({
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile, curl, server-to-server)
-    if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-      return callback(null, true);
-    }
+    // Allow requests with no origin (mobile apps, curl, server-to-server)
+    if (!origin) return callback(null, true);
+    // Wildcard — allow everything
+    if (allowedOrigins.includes('*')) return callback(null, true);
+    // Exact match against configured origins
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    // Allow all Vercel deployments (production + preview URLs)
+    if (origin.endsWith('.vercel.app')) return callback(null, true);
     // In development, allow all localhost origins
-    if (env.isDevelopment && origin?.includes('localhost')) {
+    if (env.isDevelopment && origin.includes('localhost')) {
       return callback(null, true);
     }
     callback(new Error('Not allowed by CORS'));
