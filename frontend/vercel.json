@@ -2,19 +2,19 @@
   "rewrites": [
     {
       "source": "/api/:path*/",
-      "destination": "https://vercel.com/abhijeetkumar03yt-5028s-projects/xray-interpreter_backend/3kjnxnbMg2Wu1LcdGadEZCUt2bVB/api/:path*"
+      "destination": "https://xray-interpreterbackend.vercel.app/api/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://vercel.com/abhijeetkumar03yt-5028s-projects/xray-interpreter_backend/3kjnxnbMg2Wu1LcdGadEZCUt2bVB/api/:path*"
+      "destination": "https://xray-interpreterbackend.vercel.app/api/:path*"
     },
     {
       "source": "/uploads/:path*/",
-      "destination": "https://vercel.com/abhijeetkumar03yt-5028s-projects/xray-interpreter_backend/3kjnxnbMg2Wu1LcdGadEZCUt2bVB/uploads/:path*"
+      "destination": "https://xray-interpreterbackend.vercel.app/uploads/:path*"
     },
     {
       "source": "/uploads/:path*",
-      "destination": "https://vercel.com/abhijeetkumar03yt-5028s-projects/xray-interpreter_backend/3kjnxnbMg2Wu1LcdGadEZCUt2bVB/uploads/:path*"
+      "destination": "https://xray-interpreterbackend.vercel.app/uploads/:path*"
     },
     {
       "source": "/(.*)",
