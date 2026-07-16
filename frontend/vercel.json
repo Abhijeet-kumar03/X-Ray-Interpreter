@@ -2,19 +2,19 @@
   "rewrites": [
     {
       "source": "/api/:path*/",
-      "destination": "https://xray-interpreter-backend.onrender.com//api/:path*"
+      "destination": "https://xray-interpreter-backend.onrender.com/api/:path*"
     },
     {
       "source": "/api/:path*",
-      "destination": "https://xray-interpreter-backend.onrender.com//api/:path*"
+      "destination": "https://xray-interpreter-backend.onrender.com/api/:path*"
     },
     {
       "source": "/uploads/:path*/",
-      "destination": "https://xray-interpreter-backend.onrender.com//uploads/:path*"
+      "destination": "https://xray-interpreter-backend.onrender.com/uploads/:path*"
     },
     {
       "source": "/uploads/:path*",
-      "destination": "https://xray-interpreter-backend.onrender.com//uploads/:path*"
+      "destination": "https://xray-interpreter-backend.onrender.com/uploads/:path*"
     },
     {
       "source": "/(.*)",
