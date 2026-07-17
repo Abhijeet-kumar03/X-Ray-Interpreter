@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
         const res = await authApi.getMe()
         setUser(res.user)
       } catch {
-        // Token is invalid or expired — wipe it
+        
         saveToken(null)
         setUser(null)
       } finally {

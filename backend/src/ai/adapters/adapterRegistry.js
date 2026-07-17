@@ -1,7 +1,12 @@
 'use strict';
 
-const DenseNetAdapter    = require('./denseNetAdapter');
-const EfficientNetAdapter = require('./efficientNetAdapter');
+const DenseNetAdapter         = require('./denseNetAdapter');
+const EfficientNetAdapter     = require('./efficientNetAdapter');
+const SpineMriAdapter         = require('./spineMriAdapter');
+const KneeXrayAdapter         = require('./kneeXrayAdapter');
+const FootXrayAdapter         = require('./footXrayAdapter');
+const UltrasoundAdapter       = require('./ultrasoundAdapter');
+const BreastUltrasoundAdapter = require('./breastUltrasoundAdapter');
 const logger = require('../../utils/logger');
 
 /**
@@ -20,8 +25,18 @@ const adapters = new Map();
 
 // ── Register built-in adapters ─────────────────────────────────────────────
 function initializeRegistry() {
+  // Chest X-Ray models
   register(new DenseNetAdapter());
   register(new EfficientNetAdapter());
+
+  // Musculoskeletal & spine models
+  register(new SpineMriAdapter());
+  register(new KneeXrayAdapter());
+  register(new FootXrayAdapter());
+
+  // Ultrasound models
+  register(new UltrasoundAdapter());
+  register(new BreastUltrasoundAdapter());
 
   logger.info('AI Model Registry initialized', {
     models: Array.from(adapters.keys()),

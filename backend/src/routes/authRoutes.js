@@ -21,7 +21,7 @@ router.post('/login',
 );
 
 router.post('/refresh',
-  validate(schemas.refreshToken),   // ← was missing; now validates body.refreshToken
+  validate(schemas.refreshToken),   
   authController.refreshToken,
 );
 

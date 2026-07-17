@@ -48,8 +48,13 @@ async function runPipeline(filePath, fileInfo, options = {}) {
   // ── Stage 2: Vision Model ────────────────────────────────────────────
   let adapter = adapterRegistry.getAdapter(modelName);
 
-  if (!adapter) {
-    // Fallback: try to find any adapter that supports this modality
+  // If the named adapter exists but doesn't support this modality,
+  // fall back to the modality-specific adapter automatically.
+  if (adapter && !adapter.supportsModality(modalityId)) {
+    logger.debug(`Model "${adapter.modelName}" does not support modality "${modalityId}". Auto-selecting modality-specific adapter.`);
+    adapter = adapterRegistry.getAdapterForModality(modalityId);
+  } else if (!adapter) {
+    // Named adapter not found — try to find any adapter that supports this modality
     adapter = adapterRegistry.getAdapterForModality(modalityId);
   }
 
@@ -67,6 +72,7 @@ async function runPipeline(filePath, fileInfo, options = {}) {
     );
   }
 
+
   const isModelReady = await adapter.isAvailable();
   if (!isModelReady) {
     throw new AppError(`Model "${adapter.modelName}" is currently unavailable.`, 503);
@@ -75,7 +81,7 @@ async function runPipeline(filePath, fileInfo, options = {}) {
   const visionOutput = await adapter.predict(preprocessed);
 
   // ── Stage 3: Clinical Reasoning ──────────────────────────────────────
-  const reasoningOutput = await reason(visionOutput);
+  const reasoningOutput = await reason(visionOutput, { modality: modalityId });
 
   // ── Stage 4: Report Generation ───────────────────────────────────────
   const report = await generateReport(reasoningOutput, preprocessed);
